@@ -1,0 +1,29 @@
+#!/usr/bin/python3
+import sys
+import time
+
+
+def factorize(num):
+    for i in range(2, 12):
+        if num % i == 0:
+            x = int(num / i)
+            print("{}={}*{}".format(num, x, i))
+            return
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: factors <file>")
+        exit()
+    try:
+        with open(sys.argv[1], "r") as file:
+            read = file.read().splitlines()
+    except FileNotFoundError:
+        print("file not found")
+        exit()
+    start_time = time.time()
+    for line in read:
+        factorize(int(line))
+    if time.time() - start_time > 5:
+        print("Time limit exceeded")
+        exit()
